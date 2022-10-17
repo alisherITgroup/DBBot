@@ -18,7 +18,7 @@ async def start_(message: types.Message):
         SELECT tg_id FROM users;
     """)
     for i in cursor.fetchall():
-        if tg_id not in i:
+        if tg_id != i:
 
             cursor.execute(f"""
                 INSERT INTO users(tg_id, username, first_name) VALUES('{tg_id}', '{username}', '{first_name}');
