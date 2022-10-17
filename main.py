@@ -15,7 +15,7 @@ async def start_(message: types.Message):
     username = message.from_user.username
     first_name = message.from_user.first_name
     cursor.execute("""
-        SELECT * FROM users;
+        SELECT tg_id FROM users;
     """)
     for i in cursor.fetchall():
         if tg_id not in i:
