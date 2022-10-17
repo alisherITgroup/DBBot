@@ -14,11 +14,21 @@ async def start_(message: types.Message):
     tg_id = message.from_user.id
     username = message.from_user.username
     first_name = message.from_user.first_name
-    cursor.execute(f"""
-        INSERT INTO users(tg_id, username, first_name) VALUES('{tg_id}', '{username}', '{first_name}');
+    cursor.execute("""
+        SELECT * FROM users;
     """)
-    connector.commit()
+    for i in cursor.fetchall():
+        if tg_id not in i:
+
+            cursor.execute(f"""
+                INSERT INTO users(tg_id, username, first_name) VALUES('{tg_id}', '{username}', '{first_name}');
+                """)
+            connector.commit()
+        else:
+            pass
+
     await message.answer("Assalomu alaykum")
+
 
 @dp.message_handler(commands='admin')
 async def admin(message: types.Message):
