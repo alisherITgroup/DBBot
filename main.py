@@ -20,4 +20,11 @@ async def start_(message: types.Message):
     connector.commit()
     await message.answer("Assalomu alaykum")
 
+@dp.message_handler(commands='admin')
+async def admin(message: types.Message):
+    cursor.execute("""
+        SELECT * FROM users;
+    """)
+    await message.answer(cursor.fetchall())
+
 executor.start_polling(dp, skip_updates=True)
